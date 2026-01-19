@@ -13,7 +13,7 @@
 #define GAME_COMPLETED 2
 #define GAME_ACTIVE 0
 
-/******************************************     DEFINICIÓN FUNCIONES     **********************************************/
+/******************************************     FUNCTION HEADERS     **********************************************/
 
 int **createBoard(int size);
 char **createShowBoard(int size);
@@ -32,30 +32,30 @@ int main()
 {
     int size=2, mines=0, **pBoard = NULL, number, game_status=0, tempx, tempy;
     char **pShowBoard = NULL, temp_decision;
-    printf("\n\n\t>> BIENVENIDO AL BUSCAMINAS <<");
+    printf("\n\n\t>> WELCOME TO THE MINE SWEEPER <<");
     
-    /*Definimos tamaño del tablero*/
+    /*Define board size*/
     do
     {
         if (size <= 1 || size > MAX_SIZE)
         {
-            printf("\nPor favor introduzca un valor correcto (2 / %d)", MAX_SIZE);
+            printf("\nPlease enter a valid input (2 / %d)", MAX_SIZE);
         }
         
-        printf("\n\nIntroduzca el tamaño del tablero: ");
+        printf("\n\nType the board size: ");
         scanf("%d", &size);
 
     } while (size <= 1 || size > MAX_SIZE);
     
-    /*Definimos cantidad de minas a distribuir*/
+    /*Define number of mines*/
     do
     {
         if (mines >= size * size || mines < 0)
         {
-            printf("\nPor favor introduzca un número correcto\n\n");
+            printf("\nPlease enter a valid number\n\n");
         }
 
-        printf("Introduzca el número de minas: ");
+        printf("Type the number of mines: ");
         scanf("%d", &mines);
     } while (mines >= size * size || mines < 0);
     
@@ -66,19 +66,19 @@ int main()
     /*Creación de tableros*/
     if (!(pBoard = createBoard(size)))
     {
-        printf("Error 00: No se ha podido alojar la memoria");
+        printf("Error 00: Could not allocate memory");
     }    
     
     if (!(pShowBoard = createShowBoard(size)))
     {
-        printf("Error 00: No se ha podido alojar la memoria");
+        printf("Error 00: Could not allocate memory");
     } 
 
     initalizeBoard(pBoard, size, mines);
     initializeShowBoard(pShowBoard, size);
     printBoard(pBoard, size);
     
-    /***********  Bucle del juego  *********/
+    /***********  Game Loop  *********/
 
     printf("\n\n");
 
@@ -90,27 +90,27 @@ int main()
 
         do
         {
-            printf("\nDesea (E)xplorar o (M)arcar una posición?: ");
+            printf("\nDo you want to (E)xplore or (M)ark a position?: ");
             scanf(" %c", &temp_decision);
         } while (temp_decision != 'E' && temp_decision != 'M');
         
         do
         {
-            printf("Introduzca una fila: ");
+            printf("Enter the row: ");
             scanf("%d", &tempx);
-            printf("Introduzca una columna: ");
+            printf("Enter the column: ");
             scanf("%d", &tempy);
             printf("\n");
 
             if (tempx < 1 || tempx > size || tempy < 1 || tempy > size)
             {
-                printf("Coordenadas fuera de rango. Intente de nuevo.\n");
+                printf("Given coordinates are out of range, try again\n");
                 continue;
             }
 
             if (pBoard[tempx-1][tempy-1] == EXPLORED || pBoard[tempx-1][tempy-1] == MARQUED)
             {
-                printf("Esa posición ya está explorada o marcada. Intente de nuevo.\n");
+                printf("That positions has already been explored, try again\n");
                 continue;
             }
 
@@ -161,7 +161,7 @@ int main()
     return 0;
 }
 
-/******************************************     FUNCIONAMIENTO FUNCIONES     **********************************************/
+/******************************************     FUNCTION IMPLEMENTATION     **********************************************/
 
 void freeMatrix(int **pBoard, char **pShowBoard, int size)
 {
@@ -182,18 +182,18 @@ void freeMatrix(int **pBoard, char **pShowBoard, int size)
     
 }
 
-/***********  Creación tableros  *********/
+/***********  Create the board  *********/
 
 int **createBoard(int size)
 {
-    /*Creamos array de punteros*/
+    /*Pointer array*/
     int **pBoard = NULL;
     if (!(pBoard = (int**)malloc(size * sizeof(int*))))
     {
         return NULL;
     }
 
-    /*Creamos array de enteros*/
+    /*Int array*/
     for (int i = 0; i < size; i++)
     {
         if (!(pBoard[i] = (int*)malloc(size * sizeof(int))))
@@ -212,14 +212,14 @@ int **createBoard(int size)
 
 char **createShowBoard(int size)
 {
-    /*Creamos array de punteros*/
+    /*Pointer array*/
     char **pShowBoard = NULL;
     if (!(pShowBoard = (char**)malloc(size * sizeof(char*))))
     {
         return NULL;
     }
 
-    /*Creamos array de enteros*/
+    /*Int array*/
     for (int i = 0; i < size; i++)
     {
         if (!(pShowBoard[i] = (char*)malloc(size * sizeof(char))))
@@ -236,7 +236,7 @@ char **createShowBoard(int size)
     return pShowBoard;
 }
 
-/***********  Impresión  *********/
+/***********  Printing  *********/
 
 void printShowBoard(char **pShowBoard, int size)
 {
@@ -343,12 +343,12 @@ void printBoard(int **pBoard, int size)
     }
 }
 
-/***********  Inicializaciones  *********/
+/***********  Init  *********/
 
 void initalizeBoard(int **pBoard, int size, int mines)
 {
     int tempx, tempy;
-    /*Inicializamos a cero*/
+    /*Start to 0*/
     for (int i = 0; i < size; i++)
     {
         for (int q = 0; q < size; q++)
@@ -357,7 +357,7 @@ void initalizeBoard(int **pBoard, int size, int mines)
         }
     }
 
-    /*Distribuimos minas aleatoriamente*/
+    /*Randomly distribute mines*/
     for (int i = 0; i < mines;)
     {
         tempx = randomGenerator(0, size-1);
@@ -372,7 +372,7 @@ void initalizeBoard(int **pBoard, int size, int mines)
 
 void initializeShowBoard(char **pShowBoard, int size)
 {
-    /*Ponemos tablero en blanco*/
+    /*Put board to white*/
     for (int i = 0; i < size; i++)
     {
         for (int q = 0; q < size; q++)
@@ -382,7 +382,7 @@ void initializeShowBoard(char **pShowBoard, int size)
     }
 }
 
-/***********  Números Aleatorios  *********/
+/***********  Random numbers  *********/
 
 int randomGenerator(int a, int b)
 {
@@ -402,7 +402,7 @@ int randomGenerator(int a, int b)
     return result;
 }
 
-/***********  Búsqueda de minas   *********/
+/***********  Mine sweeping   *********/
 
 int checkSurrounding(int **pBoard, int tempx, int tempy, int size)
 {
@@ -420,7 +420,7 @@ int checkSurrounding(int **pBoard, int tempx, int tempy, int size)
     return counter;
 }
 
-/***********  Comprobar estado de juego   *********/
+/***********  Check game status   *********/
 
 int checkBoard(int **pBoard, int size)
 {
