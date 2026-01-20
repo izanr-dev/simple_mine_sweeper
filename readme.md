@@ -1,8 +1,8 @@
 # Minesweeper Implementation in C    
 
-A command-line implementation of the classic Minesweeper game. This project focuses on manual memory management, pointer arithmetic, and the separation of game logic from the user interface.
+A command-line implementation of the classic Minesweeper game. This project focuses on manual memory management, pointer arithmetic, and the separation of game logic from the user interface.\
 
-\
+
 ## Architecture and Logic
 
 The core complexity of this application lies in the Dual-Board System. To ensure data integrity and prevent information leakage while maintaining the game state, the program manages two distinct dynamic matrices simultaneously:
