@@ -1,34 +1,29 @@
-```markdown
-CLI Minesweeper Implementation in C
+# CLI Minesweeper Implementation in C
 
-A robust command-line implementation of the classic Minesweeper game. This project focuses on manual memory management, pointer arithmetic, and separation of concerns between game logic and user interface.
+A command-line implementation of the classic Minesweeper game. This project focuses on manual memory management, pointer arithmetic, and the separation of game logic from the user interface.
 
-/* Architecture & Logic */
+## Architecture and Logic
 
-The core complexity of this application lies in the **Dual-Board System**. To ensure data integrity and prevent "spoilers" while maintaining game state, the program manages two distinct dynamic matrices simultaneously:
+The core complexity of this application lies in the Dual-Board System. To ensure data integrity and prevent information leakage while maintaining the game state, the program manages two distinct dynamic matrices simultaneously:
 
-/* 1. The Logic Board (`int **pBoard`) */
-**Hidden Layer:** This matrix is invisible to the user.
-**Function:** Stores the actual state of the game (Mines, Numbers, Empty spaces).
-**Values:** Uses integer constants (`1` for Mine, `0` for Empty) to perform proximity calculations efficiently.
+### 1. The Logic Board (int **pBoard)
+This matrix constitutes the hidden layer, invisible to the user. It stores the actual state of the game using integer constants to represent mines and numerical values for proximity calculations. This separation ensures that the game state is calculated independently of the rendering.
 
-/* 2. The View Board (`char **pShowBoard`) */
-**Presentation Layer:** This is what is rendered to the terminal.
-**Function:** Acts as a mask. Initially filled with 'blanks', it is updated only when the user explores (`E`) or marks (`M`) a coordinate.
-**Logic:** It fetches data from `pBoard` only upon valid user moves, ensuring the hidden state remains secure until interaction occurs.
+### 2. The View Board (char **pShowBoard)
+This matrix acts as the presentation layer or mask. It is the grid rendered to the terminal. Initially filled with blank characters, it is updated only when the user explicitly explores or marks a coordinate. It fetches data from the Logic Board only upon valid user moves.
 
-/* Technical Highlights */
+## Technical Highlights
 
-* **Dynamic Memory Allocation:** Uses `malloc` and `free` to generate grids of user-defined sizes (up to 35x35) at runtime.
-* **Double Pointers:** Extensive use of `int **` and `char **` to handle 2D array navigation.
-* **Input Validation:** Strict coordinate checking to prevent segmentation faults or out-of-bound access.
+* **Dynamic Memory Allocation:** Utilizes malloc and free to generate grids of user-defined sizes (up to 35x35) at runtime, preventing stack overflow on large grids.
+* **Double Pointers:** Extensive use of int ** and char ** to handle 2D array navigation and storage.
+* **Input Validation:** Implementation of strict coordinate checking to prevent segmentation faults or out-of-bound array access.
 
-/* How to Build and Run */
+## Build and Run
 
-**Prerequisites:** GCC Compiler.
+To compile and execute the program, a standard GCC compiler is required.
 
-# Compile
+### Compilation
 gcc mine_sweeper.c -o minesweeper
 
-# Run
+### Execution
 ./minesweeper
