@@ -1,4 +1,4 @@
-# CLI Minesweeper Implementation in C
+# Minesweeper Implementation in C
 
 A command-line implementation of the classic Minesweeper game. This project focuses on manual memory management, pointer arithmetic, and the separation of game logic from the user interface.
 
